@@ -1,0 +1,65 @@
+version: 2
+
+sources:
+  - name: raw
+    database: raw_data
+    schema: employee
+    tables:
+      - name: employee_hierarchy
+        description: "Source table with employee reporting relationships."
+
+  - name: raw_sales
+    database: raw_data
+    schema: sales
+    tables:
+      - name: sales_data
+        description: "Source table with details of sales transactions."
+
+  - name: raw_perf
+    database: raw_data
+    schema: performance_info
+    tables:
+      - name: review_data
+        description: "Source table with employee performance reviews."
+
+models:
+  - name: stg_employee
+    description: "Cleaned employee hierarchy data (employee–manager mapping)."
+    columns:
+      - name: employee_id
+        description: "Unique identifier for each employee."
+        tests:
+          - not_null
+          - unique
+      - name: manager_id
+        description: "Identifier for the employee’s manager."
+      - name: emp_name
+        description: "Employee full name."
+
+  - name: stg_sales
+    description: "Cleaned sales data with key transaction details."
+    columns:
+      - name: sale_id
+        description: "Unique identifier for each sale."
+        tests:
+          - not_null
+          - unique
+      - name: emp_id
+        description: "Employee who made the sale."
+      - name: amount
+        description: "Sales amount in local currency."
+
+  - name: stg_performance
+    description: "Cleaned performance review data."
+    columns:
+      - name: review_id
+        description: "Unique identifier for each performance review."
+        tests:
+          - not_null
+          - unique
+      - name: emp_id
+        description: "Employee being reviewed."
+      - name: rating
+        description: "Performance rating (numeric/scale)."
+      - name: review_year
+        description: "Year of the review."
