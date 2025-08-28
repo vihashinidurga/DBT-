@@ -63,3 +63,18 @@ models:
         description: "Performance rating (numeric/scale)."
       - name: review_year
         description: "Year of the review."
+  - name: employee_hierarchy
+    description: Recursive model building the employee hierarchy with manager levels.
+    columns:
+      - name: employee
+        description: The employee’s unique identifier.
+        tests:
+          - not_null
+          - unique
+      - name: manager_lvl1
+        description: Direct manager of the employee.
+      - name: manager_lvl2
+        description: Second-level manager of the employee (manager’s manager).
+      - name: manager_lvl3
+        description: Third-level manager of the employee (higher up in the hierarchy).
+
