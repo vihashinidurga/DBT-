@@ -1,0 +1,10 @@
+version: 2
+sources:
+  - name: raw
+    database: AIRBNB_BELIZE
+    schema: RAW
+    tables:
+      - name: listings
+      - name: calender
+      - name: reviews
+      - name: neighbourhoods
